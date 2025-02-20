@@ -36,6 +36,6 @@ public class UserProfileService {
     public List<UserProfileResponse> getAllProfiles() {
         var profiles = userProfileRepository.findAll();
 
-        return profiles.stream().map(userProfileMapper::toUserProfileReponse).toList();
+        return profiles.stream().map(userProfileMapper::toProfileResponse).toList();
     }
 }

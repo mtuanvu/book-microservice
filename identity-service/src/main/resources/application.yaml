@@ -22,3 +22,7 @@ springdoc:
     path: /swagger
   api-docs:
     path: /api
+
+app:
+  services:
+    profile: http://localhost:8081/profile

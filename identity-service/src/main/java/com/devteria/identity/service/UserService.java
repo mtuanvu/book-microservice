@@ -53,8 +53,9 @@ public class UserService {
         user = userRepository.save(user);
 
         ProfileCreationRequest profileCreationRequest = profileMapper.toProfileCreationRequest(request);
-        Object profileResponse = profileClient.createProfile(profileCreationRequest);
-        log.info(profileResponse.toString());
+        profileCreationRequest.setUserId(user.getId());
+
+        profileClient.createProfile(profileCreationRequest);
 
         return userMapper.toUserResponse(user);
     }
@@ -94,7 +95,6 @@ public class UserService {
 
     @PreAuthorize("hasRole('ADMIN')")
     public UserResponse getUser(String id) {
-        return userMapper.toUserResponse(
-                userRepository.findById(id).orElseThrow(() -> new AppException(ErrorCode.USER_NOT_EXISTED)));
+        return userMapper.toUserResponse(userRepository.findById(id).orElseThrow(() -> new AppException(ErrorCode.USER_NOT_EXISTED)));
     }
 }

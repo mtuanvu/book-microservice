@@ -1,14 +1,16 @@
 package com.devteria.profile.mapper;
 
-import org.mapstruct.Mapper;
-
-import com.devteria.profile.dto.request.ProfileCreationRequest;
+import com.devteria.profile.dto.request.UserProfileCreationRequest;
 import com.devteria.profile.dto.response.UserProfileResponse;
-import com.devteria.profile.entity.UserProfile;
+import com.devteria.profile.entities.UserProfile;
+import org.mapstruct.Mapper;
+import org.mapstruct.MappingTarget;
 
 @Mapper(componentModel = "spring")
 public interface UserProfileMapper {
-    UserProfile toUserProfile(ProfileCreationRequest request);
+    UserProfile toUserProfile(UserProfileCreationRequest request);
 
-    UserProfileResponse toUserProfileReponse(UserProfile entity);
+    void updateUserProfile(@MappingTarget UserProfile userProfile, UserProfileCreationRequest request);
+
+    UserProfileResponse toProfileResponse(UserProfile userProfile);
 }

@@ -27,6 +27,8 @@ import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 @Service
 @RequiredArgsConstructor
@@ -45,8 +47,8 @@ public class UserService {
 
         User user = userMapper.toUser(request);
         user.setPassword(passwordEncoder.encode(request.getPassword()));
-
         HashSet<Role> roles = new HashSet<>();
+
         roleRepository.findById(PredefinedRole.USER_ROLE).ifPresent(roles::add);
 
         user.setRoles(roles);
